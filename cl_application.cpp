@@ -13,19 +13,18 @@ void cl_application::build_tree_objects() {
     while (true) {
         std::cin >> head;
         if (head == "endtree") break;
-
         std::cin >> sub >> id;
-        if (get_object_by_coordinate(head)) {
-            if (get_object_by_coordinate(head)->find_on_tree(sub)) {
+        cl_base *obj = get_object_by_coordinate(head);
+        if (obj) {
+            if (obj->find_on_tree(sub)) {
                 std::cout << head << "     Dubbing the names of subordinate objects" << std::endl;
                 continue;
             }
-
-            if (id == 2) new cl_obj2(get_object_by_coordinate(head), sub);
-            else if (id == 3) new cl_obj3(get_object_by_coordinate(head), sub);
-            else if (id == 4) new cl_obj4(get_object_by_coordinate(head), sub);
-            else if (id == 5) new cl_obj5(get_object_by_coordinate(head), sub);
-            else if (id == 6) new cl_obj6(get_object_by_coordinate(head), sub);
+            if (id == 2) new cl_obj2(obj, sub);
+            else if (id == 3) new cl_obj3(obj, sub);
+            else if (id == 4) new cl_obj4(obj, sub);
+            else if (id == 5) new cl_obj5(obj, sub);
+            else if (id == 6) new cl_obj6(obj, sub);
         } else {
             modify_text(get_name() + "_" + head + "_broken");
             return;
@@ -66,8 +65,10 @@ int cl_application::exec_app() {
                 cout << ("Object is set: " + target->get_name()) << endl;
             } else cout << ("The object was not found at the specified coordinate: " + args) << endl;
         } else if (command == "FIND") {
-            if (from) cout << (args + "     Object name: " + from->get_name()) << endl;
-            else cout << (args + "     Object is not found") << endl;
+            if (from)
+                cout << (args + "     Object name: " + from->get_name()) << endl;
+            else
+                cout << (args + "     Object is not found") << endl;
         } else if (command == "MOVE") {
             if (from) {
                 if (target->find_on_branch(from->get_name()) &&

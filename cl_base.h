@@ -24,7 +24,7 @@ public:
     void set_state(int state);
     bool change_head_object(cl_base*);
 
-    void delete_sub_object_by_name(std::string);
+    void delete_sub_object_by_name(std::string name);
 
     void print_state();
     void print();
