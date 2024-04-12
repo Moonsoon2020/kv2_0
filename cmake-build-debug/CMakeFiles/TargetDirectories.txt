@@ -1,0 +1,3 @@
+D:/MyPrograms/C++/kv2.0/cmake-build-debug/CMakeFiles/kv2_0.dir
+D:/MyPrograms/C++/kv2.0/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/MyPrograms/C++/kv2.0/cmake-build-debug/CMakeFiles/rebuild_cache.dir
