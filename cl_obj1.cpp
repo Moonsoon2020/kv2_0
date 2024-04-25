@@ -1,14 +1,14 @@
-#include "cl_obj3.h"
+#include "cl_obj1.h"
 
-cl_obj3::cl_obj3(cl_base * pheadObject, std::string text):cl_base(pheadObject, text, 3){
+cl_obj1::cl_obj1(cl_base * pheadObject, std::string text):cl_base(pheadObject, text, 1){
 
 }
 // Метод сигнала
-void cl_obj3::signal(string& d) {
+void cl_obj1::signal(string& d) {
     cout << endl << "Signal from " << path();
     d += " (class: 6)";
 }
 // Метод обработчика
-void cl_obj3::handler(string d) {
+void cl_obj1::handler(string d) {
     cout << endl << "Signal to " << path() << " Text: " << d;
 }

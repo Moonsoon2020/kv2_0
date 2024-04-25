@@ -10,4 +10,5 @@ add_executable(kv2_0 main.cpp
         cl_obj3.cpp
         cl_obj4.cpp
         cl_obj5.cpp
-        cl_obj6.cpp)
+        cl_obj6.cpp
+        cl_obj1.cpp)

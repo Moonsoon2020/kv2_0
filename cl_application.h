@@ -1,6 +1,7 @@
 #ifndef __CL_APPLICATION__H
 #define __CL_APPLICATION__H
 #include "cl_base.h"
+#include "cl_obj1.h"
 #include "cl_obj2.h"
 #include "cl_obj3.h"
 #include "cl_obj4.h"
@@ -15,6 +16,8 @@ public:
 
     void build_tree_objects();
     int exec_app();
+    TYPE_SIGNAL get_signal(cl_base*);
+    TYPE_HANDLER get_handler(cl_base*);
 };
 
 
