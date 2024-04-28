@@ -5,8 +5,9 @@
 class cl_obj2: public cl_base{
 public:
     cl_obj2(cl_base * pheadObject, std::string name);
-    void signal(std::string&);
-    void handler(string);
+    void signal(std::string &);
+    void handler(string );
 };
+
 
 #endif

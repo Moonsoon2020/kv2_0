@@ -1,7 +1,7 @@
 #include "cl_application.h"
 
 cl_application::cl_application(cl_application *element)
-        : cl_base(element, "Object tree", 1) {
+        : cl_base(element, "Object tree") {
 }
 
 void cl_application::build_tree_objects() {
@@ -21,13 +21,14 @@ void cl_application::build_tree_objects() {
         }
         std::cin >> sub >> id;
         if (!obj->get_child_by_name(sub)) {
-            if (id == 2) new cl_obj2(obj, sub);
+            if (id == 1) new cl_base(obj, sub, 1);
+            else if (id == 2) new cl_obj2(obj, sub);
             else if (id == 3) new cl_obj3(obj, sub);
             else if (id == 4) new cl_obj4(obj, sub);
             else if (id == 5) new cl_obj5(obj, sub);
             else if (id == 6) new cl_obj6(obj, sub);
         } else
-            std::cout << head << "     Dubbing the names of subordinate objects" << endl;
+            std::cout << head << " Dubbing the names of subordinate objects" << endl;
 
     }
     cin >> sub;
@@ -60,21 +61,21 @@ int cl_application::exec_app() {
             } else cout << ("The object was not found at the specified coordinate: " + args) << endl;
         } else if (command == "FIND") {
             if (from)
-                cout << (args + "     Object name: " + from->get_name()) << endl;
+                cout << (args + " Object name: " + from->get_name()) << endl;
             else
-                cout << (args + "     Object is not found") << endl;
+                cout << (args + " Object is not found") << endl;
         } else if (command == "MOVE") {
             if (from) {
                 if (target->find_on_branch(from->get_name()) == from)
-                    cout << (args + "     Redefining the head object failed") << endl;
+                    cout << (args + " Redefining the head object failed") << endl;
                 else {
                     if (from->find_on_tree(target->get_name()))
-                        cout << (args + "     Dubbing the names of subordinate objects") << endl;
+                        cout << (args + " Dubbing the names of subordinate objects") << endl;
                     else if (target->change_head_object(from))
                         cout << ("New head object: " + target->get_head()->get_name()) << endl;
 
                 }
-            } else cout << (args + "     Head object is not found") << endl;
+            } else cout << (args + " Head object is not found") << endl;
         } else if (command == "MOVE") {
             if (!from) {
                 cout << args << " Head object is not found" << endl;
@@ -102,7 +103,7 @@ int cl_application::exec_app() {
             }
         } else if (command == "EMIT") {
             if (!from) {
-                cout << endl << "Object " << args << " not found";
+                cout << "Object " << args << " not found" << endl;
                 continue;
             }
             if (from->get_state()) {
@@ -112,12 +113,12 @@ int cl_application::exec_app() {
             from->set_state(stoi(msg));
         } else {
             if (!from) {
-                cout << endl << "Object " << args << " not found";
+                cout << "Object " << args << " not found" << endl;
                 continue;
             }
             cl_base *obj2 = get_object_by_coordinate(msg.substr(1));
             if (obj2 == nullptr) {
-                cout << endl << "Handler object " << msg << " not found";
+                cout << "Handler object " << msg << " not found" << endl;
                 continue;
             }
             if (command == "SET_CONNECT") {
@@ -127,8 +128,8 @@ int cl_application::exec_app() {
             }
         }
     }
-    cout << ("Current object hierarchy tree") << endl;
-    print();
+    //cout << ("Current object hierarchy tree") << endl;
+    //print();
     return 0;
 }
 
@@ -136,7 +137,7 @@ int cl_application::exec_app() {
 TYPE_SIGNAL cl_application::get_signal(cl_base *obj) {
     switch (obj->get_cl_n()) {
         case 1:
-            return SIGNAL_D(cl_obj1::signal);
+            return SIGNAL_D(cl_base::signal);
         case 2:
             return SIGNAL_D(cl_obj2::signal);
         case 3:
@@ -155,7 +156,7 @@ TYPE_SIGNAL cl_application::get_signal(cl_base *obj) {
 TYPE_HANDLER cl_application::get_handler(cl_base *obj) {
     switch (obj->get_cl_n()) {
         case 1:
-            return HANDLER_D(cl_obj1::handler);
+            return HANDLER_D(cl_base::handler);
         case 2:
             return HANDLER_D(cl_obj2::handler);
         case 3:

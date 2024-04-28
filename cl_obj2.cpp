@@ -5,10 +5,10 @@ cl_obj2::cl_obj2(cl_base * pheadObject, std::string text):cl_base(pheadObject, t
 }
 // Метод сигнала
 void cl_obj2::signal(string& d) {
-    cout << endl << "Signal from " << path();
-    d += " (class: 6)";
+    cout << "Signal from " << path() << endl;
+    d += " (class: 2)";
 }
 // Метод обработчика
 void cl_obj2::handler(string d) {
-    cout << endl << "Signal to " << path() << " Text: " << d;
+    cout << "Signal to " << path() << " Text: " << d<< endl;
 }

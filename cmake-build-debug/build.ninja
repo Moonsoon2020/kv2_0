@@ -97,12 +97,6 @@ build CMakeFiles/kv2_0.dir/cl_obj6.cpp.obj: CXX_COMPILER__kv2_0_unscanned_Debug 
   OBJECT_DIR = CMakeFiles\kv2_0.dir
   OBJECT_FILE_DIR = CMakeFiles\kv2_0.dir
 
-build CMakeFiles/kv2_0.dir/cl_obj1.cpp.obj: CXX_COMPILER__kv2_0_unscanned_Debug D$:/MyPrograms/C++/kv2.0/cl_obj1.cpp || cmake_object_order_depends_target_kv2_0
-  DEP_FILE = CMakeFiles\kv2_0.dir\cl_obj1.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\kv2_0.dir
-  OBJECT_FILE_DIR = CMakeFiles\kv2_0.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target kv2_0
@@ -111,7 +105,7 @@ build CMakeFiles/kv2_0.dir/cl_obj1.cpp.obj: CXX_COMPILER__kv2_0_unscanned_Debug 
 #############################################
 # Link the executable kv2_0.exe
 
-build kv2_0.exe: CXX_EXECUTABLE_LINKER__kv2_0_Debug CMakeFiles/kv2_0.dir/main.cpp.obj CMakeFiles/kv2_0.dir/cl_application.cpp.obj CMakeFiles/kv2_0.dir/cl_base.cpp.obj CMakeFiles/kv2_0.dir/cl_obj2.cpp.obj CMakeFiles/kv2_0.dir/cl_obj3.cpp.obj CMakeFiles/kv2_0.dir/cl_obj4.cpp.obj CMakeFiles/kv2_0.dir/cl_obj5.cpp.obj CMakeFiles/kv2_0.dir/cl_obj6.cpp.obj CMakeFiles/kv2_0.dir/cl_obj1.cpp.obj
+build kv2_0.exe: CXX_EXECUTABLE_LINKER__kv2_0_Debug CMakeFiles/kv2_0.dir/main.cpp.obj CMakeFiles/kv2_0.dir/cl_application.cpp.obj CMakeFiles/kv2_0.dir/cl_base.cpp.obj CMakeFiles/kv2_0.dir/cl_obj2.cpp.obj CMakeFiles/kv2_0.dir/cl_obj3.cpp.obj CMakeFiles/kv2_0.dir/cl_obj4.cpp.obj CMakeFiles/kv2_0.dir/cl_obj5.cpp.obj CMakeFiles/kv2_0.dir/cl_obj6.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\kv2_0.dir

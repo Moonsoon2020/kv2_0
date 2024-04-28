@@ -11,7 +11,15 @@ cl_base *cl_base::get_child_by_name(string name) {
     }
     return nullptr;
 }
-
+// Метод сигнала
+void cl_base::signal(string& d) {
+    cout << "Signal from " << path() << endl;
+    d += " (class: 2)";
+}
+// Метод обработчика
+void cl_base::handler(string d) {
+    cout << "Signal to " << path() << " Text: " << d<< endl;
+}
 cl_base *cl_base::find_on_branch(string name) {
     if (this->name == name)
         return this;
@@ -90,7 +98,7 @@ cl_base *cl_base::get_object_by_coordinate(string s_object_coordinate) {
                 bool flag = false;
                 if (names.empty())
                     return base;
-                for (auto  i : base->objects){
+                for (auto i : base->objects){
                     if (names[0] == i->get_name()){
                         names.erase(names.begin());
                         base = i;
@@ -136,16 +144,16 @@ bool cl_base::modify_text(string name) {
 }
 
 void cl_base::set_state(int state) {
-    if (head && head->state == 0) {
-        this->state = 0;
-    }
-    else {
-        this->state = state;
-    }
-    if (state == 0) {
-        for (cl_base* child : objects) {
-            child->set_state(0);
-        }
+    this->state = state;
+    if (this->state == 0)
+        for (cl_base *subordinate_object: objects)
+            subordinate_object->set_state(state);
+    cl_base *base = this;
+    while (true) {
+        if (base->get_head()) {
+            base = base->get_head();
+            if (state == 0) base->set_state(0);
+        } else break;
     }
 }
 
@@ -157,8 +165,7 @@ bool cl_base::change_head_object(cl_base *head) {
         if (current == this) return false;
         current = current->get_head();
     }
-    for (auto i = (this->head->objects).begin(); i !=
-                                                                (this->head->objects).end();i++){
+    for (auto i = (this->head->objects).begin(); i != (this->head->objects).end();i++){
         if (*i == this){
             (this->head->objects).erase(i);
             break;
@@ -229,8 +236,7 @@ string cl_base::path() {
     return "/" + p;
 }
 // Метод установи связи между сигналом текущего объекта и обработчиком
-void cl_base::set_connect(TYPE_SIGNAL p_signal, cl_base* p_object,
-                          TYPE_HANDLER p_ob_handler){
+void cl_base::set_connect(TYPE_SIGNAL p_signal, cl_base* p_object, TYPE_HANDLER p_ob_handler){
     o_sh* p_value;
     for (unsigned int i = 0; i < connects.size(); i++)
     {
@@ -242,7 +248,7 @@ void cl_base::set_connect(TYPE_SIGNAL p_signal, cl_base* p_object,
         }
     }
     p_value = new o_sh(); // создание объекта структуры для
-// хранения информации о новой связи
+    // хранения информации о новой связи
     p_value->p_signal = p_signal;
     p_value->p_cl_base = p_object;
     p_value->p_handler = p_ob_handler;
@@ -252,7 +258,7 @@ void cl_base::set_connect(TYPE_SIGNAL p_signal, cl_base* p_object,
 void cl_base::emit_signal(TYPE_SIGNAL p_signal, string & s_command){
     TYPE_HANDLER p_handler;
     cl_base* p_object;
-// если отключен
+    // если отключен
     if (this->state == 0) return;
     (this->*p_signal) (s_command); // вызов метода сигнала
     for (unsigned int i = 0; i < connects.size(); i++) // цикл по всем
@@ -267,8 +273,7 @@ void cl_base::emit_signal(TYPE_SIGNAL p_signal, string & s_command){
     }
 }
 // Метод удаления (разрыва) связи между сигналом текущего объекта и обработчиком целевого объекта
-void cl_base::break_connection(TYPE_SIGNAL p_signal, cl_base* p_object,
-                               TYPE_HANDLER p_ob_handler) {
+void cl_base::break_connection(TYPE_SIGNAL p_signal, cl_base* p_object, TYPE_HANDLER p_ob_handler) {
     for (auto i = connects.begin(); i != connects.end(); i++) {
         o_sh* c = *i;
         if (c->p_cl_base == p_object &&
@@ -284,7 +289,7 @@ void cl_base::break_connection(TYPE_SIGNAL p_signal, cl_base* p_object,
 cl_base::cl_base(cl_base* p_head_object, string s_object_name, int cl_n) {
     this->head = p_head_object;
     this->name = s_object_name;
-    this->cl_n = cl_n;
+    this->cl_n =cl_n;
     if (p_head_object) {
         p_head_object->objects.push_back(this);
     }
