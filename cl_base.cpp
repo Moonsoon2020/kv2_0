@@ -13,12 +13,9 @@ cl_base *cl_base::get_child_by_name(string name) {
 }
 // Метод сигнала
 void cl_base::signal(string& d) {
-    cout << "Signal from " << path() << endl;
-    d += " (class: 2)";
 }
 // Метод обработчика
 void cl_base::handler(string d) {
-    cout << "Signal to " << path() << " Text: " << d<< endl;
 }
 cl_base *cl_base::find_on_branch(string name) {
     if (this->name == name)
@@ -148,13 +145,6 @@ void cl_base::set_state(int state) {
     if (this->state == 0)
         for (cl_base *subordinate_object: objects)
             subordinate_object->set_state(state);
-    cl_base *base = this;
-    while (true) {
-        if (base->get_head()) {
-            base = base->get_head();
-            if (state == 0) base->set_state(0);
-        } else break;
-    }
 }
 
 bool cl_base::change_head_object(cl_base *head) {
@@ -259,7 +249,8 @@ void cl_base::emit_signal(TYPE_SIGNAL p_signal, string & s_command){
     TYPE_HANDLER p_handler;
     cl_base* p_object;
     // если отключен
-    if (this->state == 0) return;
+    if (this->state == 0)
+        return;
     (this->*p_signal) (s_command); // вызов метода сигнала
     for (unsigned int i = 0; i < connects.size(); i++) // цикл по всем
     {
@@ -268,6 +259,7 @@ void cl_base::emit_signal(TYPE_SIGNAL p_signal, string & s_command){
             p_object = connects[i]->p_cl_base;
             if (p_object->state == 0) continue;
             p_handler = connects[i]->p_handler;
+            if (p_handler)
             (p_object->*p_handler) (s_command); // вызов метода обработчика
         }
     }
